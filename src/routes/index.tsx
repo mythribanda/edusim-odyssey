@@ -44,6 +44,30 @@ function Home() {
         </div>
       </section>
 
+      <Link
+        to="/simulation/class9/physics/laws-of-motion/projectile-motion"
+        className="block mb-10"
+      >
+        <motion.div
+          whileHover={{ scale: 1.01 }}
+          className="glass-strong rounded-3xl p-6 flex items-center justify-between gap-4 neon-border overflow-hidden relative"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-[var(--neon-purple)]/15 to-transparent" />
+          <div className="relative">
+            <div className="text-[10px] font-mono text-[var(--neon-cyan)] tracking-widest mb-1">
+              FEATURED LAB · CLASS 9 · PHYSICS
+            </div>
+            <div className="text-xl font-bold">Projectile Motion · Slingshot Edition 🐦</div>
+            <p className="text-sm text-muted-foreground">
+              Drag, aim and launch — learn Newton's Laws by demolishing targets.
+            </p>
+          </div>
+          <div className="relative hidden md:flex w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--neon-purple)] to-[var(--neon-blue)] items-center justify-center glow-purple">
+            <Rocket className="w-8 h-8 text-white" />
+          </div>
+        </motion.div>
+      </Link>
+
       <h2 className="text-2xl font-bold mb-6">Choose your class</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         {CLASSES.map((c, i) => (
