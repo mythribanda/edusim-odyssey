@@ -255,7 +255,6 @@ export function CanvasGame({
           proj.y = ground;
           spawnParticles(proj.x, ground, "#a78bfa");
           const speed = Math.hypot(proj.vx, proj.vy);
-          onStats((cur => ({ ...cur }))({} as any));
           proj.active = false;
           onSamples([...samplesRef.current]);
           onStatsUpdate(speed);
