@@ -9,16 +9,46 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ProgressRouteImport } from './routes/progress'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as MySimulationsRouteImport } from './routes/my-simulations'
+import { Route as LibraryRouteImport } from './routes/library'
+import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SubjectsClassIdRouteImport } from './routes/subjects.$classId'
 import { Route as SimulationTopicRouteImport } from './routes/simulation.$topic'
 import { Route as ChaptersClassIdSubjectRouteImport } from './routes/chapters.$classId.$subject'
 import { Route as TopicsClassIdSubjectChapterRouteImport } from './routes/topics.$classId.$subject.$chapter'
 
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgressRoute = ProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MySimulationsRoute = MySimulationsRouteImport.update({
   id: '/my-simulations',
   path: '/my-simulations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibraryRoute = LibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FavoritesRoute = FavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -50,7 +80,12 @@ const TopicsClassIdSubjectChapterRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/favorites': typeof FavoritesRoute
+  '/library': typeof LibraryRoute
   '/my-simulations': typeof MySimulationsRoute
+  '/profile': typeof ProfileRoute
+  '/progress': typeof ProgressRoute
+  '/settings': typeof SettingsRoute
   '/simulation/$topic': typeof SimulationTopicRoute
   '/subjects/$classId': typeof SubjectsClassIdRoute
   '/chapters/$classId/$subject': typeof ChaptersClassIdSubjectRoute
@@ -58,7 +93,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/favorites': typeof FavoritesRoute
+  '/library': typeof LibraryRoute
   '/my-simulations': typeof MySimulationsRoute
+  '/profile': typeof ProfileRoute
+  '/progress': typeof ProgressRoute
+  '/settings': typeof SettingsRoute
   '/simulation/$topic': typeof SimulationTopicRoute
   '/subjects/$classId': typeof SubjectsClassIdRoute
   '/chapters/$classId/$subject': typeof ChaptersClassIdSubjectRoute
@@ -67,7 +107,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/favorites': typeof FavoritesRoute
+  '/library': typeof LibraryRoute
   '/my-simulations': typeof MySimulationsRoute
+  '/profile': typeof ProfileRoute
+  '/progress': typeof ProgressRoute
+  '/settings': typeof SettingsRoute
   '/simulation/$topic': typeof SimulationTopicRoute
   '/subjects/$classId': typeof SubjectsClassIdRoute
   '/chapters/$classId/$subject': typeof ChaptersClassIdSubjectRoute
@@ -77,7 +122,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/favorites'
+    | '/library'
     | '/my-simulations'
+    | '/profile'
+    | '/progress'
+    | '/settings'
     | '/simulation/$topic'
     | '/subjects/$classId'
     | '/chapters/$classId/$subject'
@@ -85,7 +135,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/favorites'
+    | '/library'
     | '/my-simulations'
+    | '/profile'
+    | '/progress'
+    | '/settings'
     | '/simulation/$topic'
     | '/subjects/$classId'
     | '/chapters/$classId/$subject'
@@ -93,7 +148,12 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/favorites'
+    | '/library'
     | '/my-simulations'
+    | '/profile'
+    | '/progress'
+    | '/settings'
     | '/simulation/$topic'
     | '/subjects/$classId'
     | '/chapters/$classId/$subject'
@@ -102,7 +162,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FavoritesRoute: typeof FavoritesRoute
+  LibraryRoute: typeof LibraryRoute
   MySimulationsRoute: typeof MySimulationsRoute
+  ProfileRoute: typeof ProfileRoute
+  ProgressRoute: typeof ProgressRoute
+  SettingsRoute: typeof SettingsRoute
   SimulationTopicRoute: typeof SimulationTopicRoute
   SubjectsClassIdRoute: typeof SubjectsClassIdRoute
   ChaptersClassIdSubjectRoute: typeof ChaptersClassIdSubjectRoute
@@ -111,11 +176,46 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/progress': {
+      id: '/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof ProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/my-simulations': {
       id: '/my-simulations'
       path: '/my-simulations'
       fullPath: '/my-simulations'
       preLoaderRoute: typeof MySimulationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/library': {
+      id: '/library'
+      path: '/library'
+      fullPath: '/library'
+      preLoaderRoute: typeof LibraryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/favorites': {
+      id: '/favorites'
+      path: '/favorites'
+      fullPath: '/favorites'
+      preLoaderRoute: typeof FavoritesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -158,7 +258,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FavoritesRoute: FavoritesRoute,
+  LibraryRoute: LibraryRoute,
   MySimulationsRoute: MySimulationsRoute,
+  ProfileRoute: ProfileRoute,
+  ProgressRoute: ProgressRoute,
+  SettingsRoute: SettingsRoute,
   SimulationTopicRoute: SimulationTopicRoute,
   SubjectsClassIdRoute: SubjectsClassIdRoute,
   ChaptersClassIdSubjectRoute: ChaptersClassIdSubjectRoute,
