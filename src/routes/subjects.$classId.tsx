@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { getClass } from "@/data/curriculum";
+import { getClass, type ClassInfo } from "@/data/curriculum";
 import { Card, PageWrapper } from "@/components/Card";
 import { Crumbs } from "@/components/Crumbs";
 import * as Icons from "lucide-react";
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/subjects/$classId")({
 });
 
 function SubjectsPage() {
-  const c = Route.useLoaderData();
+  const c = Route.useLoaderData() as ClassInfo;
   return (
     <PageWrapper>
       <Crumbs items={[{ label: "Home", to: "/" }, { label: c.name }]} />

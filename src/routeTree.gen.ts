@@ -9,38 +9,115 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as MySimulationsRouteImport } from './routes/my-simulations'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SubjectsClassIdRouteImport } from './routes/subjects.$classId'
+import { Route as SimulationTopicRouteImport } from './routes/simulation.$topic'
+import { Route as ChaptersClassIdSubjectRouteImport } from './routes/chapters.$classId.$subject'
+import { Route as TopicsClassIdSubjectChapterRouteImport } from './routes/topics.$classId.$subject.$chapter'
 
+const MySimulationsRoute = MySimulationsRouteImport.update({
+  id: '/my-simulations',
+  path: '/my-simulations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SubjectsClassIdRoute = SubjectsClassIdRouteImport.update({
+  id: '/subjects/$classId',
+  path: '/subjects/$classId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SimulationTopicRoute = SimulationTopicRouteImport.update({
+  id: '/simulation/$topic',
+  path: '/simulation/$topic',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChaptersClassIdSubjectRoute = ChaptersClassIdSubjectRouteImport.update({
+  id: '/chapters/$classId/$subject',
+  path: '/chapters/$classId/$subject',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TopicsClassIdSubjectChapterRoute =
+  TopicsClassIdSubjectChapterRouteImport.update({
+    id: '/topics/$classId/$subject/$chapter',
+    path: '/topics/$classId/$subject/$chapter',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/my-simulations': typeof MySimulationsRoute
+  '/simulation/$topic': typeof SimulationTopicRoute
+  '/subjects/$classId': typeof SubjectsClassIdRoute
+  '/chapters/$classId/$subject': typeof ChaptersClassIdSubjectRoute
+  '/topics/$classId/$subject/$chapter': typeof TopicsClassIdSubjectChapterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/my-simulations': typeof MySimulationsRoute
+  '/simulation/$topic': typeof SimulationTopicRoute
+  '/subjects/$classId': typeof SubjectsClassIdRoute
+  '/chapters/$classId/$subject': typeof ChaptersClassIdSubjectRoute
+  '/topics/$classId/$subject/$chapter': typeof TopicsClassIdSubjectChapterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/my-simulations': typeof MySimulationsRoute
+  '/simulation/$topic': typeof SimulationTopicRoute
+  '/subjects/$classId': typeof SubjectsClassIdRoute
+  '/chapters/$classId/$subject': typeof ChaptersClassIdSubjectRoute
+  '/topics/$classId/$subject/$chapter': typeof TopicsClassIdSubjectChapterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/my-simulations'
+    | '/simulation/$topic'
+    | '/subjects/$classId'
+    | '/chapters/$classId/$subject'
+    | '/topics/$classId/$subject/$chapter'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/my-simulations'
+    | '/simulation/$topic'
+    | '/subjects/$classId'
+    | '/chapters/$classId/$subject'
+    | '/topics/$classId/$subject/$chapter'
+  id:
+    | '__root__'
+    | '/'
+    | '/my-simulations'
+    | '/simulation/$topic'
+    | '/subjects/$classId'
+    | '/chapters/$classId/$subject'
+    | '/topics/$classId/$subject/$chapter'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MySimulationsRoute: typeof MySimulationsRoute
+  SimulationTopicRoute: typeof SimulationTopicRoute
+  SubjectsClassIdRoute: typeof SubjectsClassIdRoute
+  ChaptersClassIdSubjectRoute: typeof ChaptersClassIdSubjectRoute
+  TopicsClassIdSubjectChapterRoute: typeof TopicsClassIdSubjectChapterRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/my-simulations': {
+      id: '/my-simulations'
+      path: '/my-simulations'
+      fullPath: '/my-simulations'
+      preLoaderRoute: typeof MySimulationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +125,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/subjects/$classId': {
+      id: '/subjects/$classId'
+      path: '/subjects/$classId'
+      fullPath: '/subjects/$classId'
+      preLoaderRoute: typeof SubjectsClassIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/simulation/$topic': {
+      id: '/simulation/$topic'
+      path: '/simulation/$topic'
+      fullPath: '/simulation/$topic'
+      preLoaderRoute: typeof SimulationTopicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chapters/$classId/$subject': {
+      id: '/chapters/$classId/$subject'
+      path: '/chapters/$classId/$subject'
+      fullPath: '/chapters/$classId/$subject'
+      preLoaderRoute: typeof ChaptersClassIdSubjectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/topics/$classId/$subject/$chapter': {
+      id: '/topics/$classId/$subject/$chapter'
+      path: '/topics/$classId/$subject/$chapter'
+      fullPath: '/topics/$classId/$subject/$chapter'
+      preLoaderRoute: typeof TopicsClassIdSubjectChapterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MySimulationsRoute: MySimulationsRoute,
+  SimulationTopicRoute: SimulationTopicRoute,
+  SubjectsClassIdRoute: SubjectsClassIdRoute,
+  ChaptersClassIdSubjectRoute: ChaptersClassIdSubjectRoute,
+  TopicsClassIdSubjectChapterRoute: TopicsClassIdSubjectChapterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
