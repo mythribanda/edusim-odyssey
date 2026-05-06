@@ -11,6 +11,9 @@ import { FirstLawCanvas } from "@/components/sim/laws/FirstLawCanvas";
 import { SecondLawCanvas } from "@/components/sim/laws/SecondLawCanvas";
 import { ThirdLawCanvas } from "@/components/sim/laws/ThirdLawCanvas";
 import type { LawSample } from "@/components/sim/laws/types";
+import { PromptBox } from "@/components/sim/PromptBox";
+
+const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
 
 export const Route = createFileRoute("/simulation/class9/physics/laws-of-motion/")({
   component: LawsOfMotionLab,
