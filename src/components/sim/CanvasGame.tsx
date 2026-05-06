@@ -21,6 +21,7 @@ type Props = {
   resetTrigger: number;
   replayTrigger: number;
   onPowerAngle: (p: number, a: number) => void;
+  aim?: { power: number; angle: number } | null;
 };
 
 type Target = { x: number; y: number; w: number; h: number; alive: boolean };
@@ -30,7 +31,7 @@ const PIXELS_PER_M = 6;
 
 export function CanvasGame({
   gravityKey, onStats, onSamples, onHit,
-  launchTrigger, resetTrigger, replayTrigger, onPowerAngle,
+  launchTrigger, resetTrigger, replayTrigger, onPowerAngle, aim,
 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -92,6 +93,8 @@ export function CanvasGame({
     if (dragRef.current.active) {
       const { power, angle } = computeDrag();
       launchProjectile(power, angle);
+    } else if (aim) {
+      launchProjectile(aim.power, aim.angle);
     } else if (lastLaunchRef.current) {
       launchProjectile(lastLaunchRef.current.power, lastLaunchRef.current.angle);
     }
