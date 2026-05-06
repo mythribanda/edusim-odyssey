@@ -20,6 +20,7 @@ import { Route as SubjectsClassIdRouteImport } from './routes/subjects.$classId'
 import { Route as SimulationTopicRouteImport } from './routes/simulation.$topic'
 import { Route as ChaptersClassIdSubjectRouteImport } from './routes/chapters.$classId.$subject'
 import { Route as TopicsClassIdSubjectChapterRouteImport } from './routes/topics.$classId.$subject.$chapter'
+import { Route as SimulationClass9PhysicsLawsOfMotionIndexRouteImport } from './routes/simulation.class9.physics.laws-of-motion.index'
 import { Route as SimulationClass9PhysicsLawsOfMotionProjectileMotionRouteImport } from './routes/simulation.class9.physics.laws-of-motion.projectile-motion'
 
 const SettingsRoute = SettingsRouteImport.update({
@@ -78,6 +79,12 @@ const TopicsClassIdSubjectChapterRoute =
     path: '/topics/$classId/$subject/$chapter',
     getParentRoute: () => rootRouteImport,
   } as any)
+const SimulationClass9PhysicsLawsOfMotionIndexRoute =
+  SimulationClass9PhysicsLawsOfMotionIndexRouteImport.update({
+    id: '/simulation/class9/physics/laws-of-motion/',
+    path: '/simulation/class9/physics/laws-of-motion/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SimulationClass9PhysicsLawsOfMotionProjectileMotionRoute =
   SimulationClass9PhysicsLawsOfMotionProjectileMotionRouteImport.update({
     id: '/simulation/class9/physics/laws-of-motion/projectile-motion',
@@ -98,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/chapters/$classId/$subject': typeof ChaptersClassIdSubjectRoute
   '/topics/$classId/$subject/$chapter': typeof TopicsClassIdSubjectChapterRoute
   '/simulation/class9/physics/laws-of-motion/projectile-motion': typeof SimulationClass9PhysicsLawsOfMotionProjectileMotionRoute
+  '/simulation/class9/physics/laws-of-motion/': typeof SimulationClass9PhysicsLawsOfMotionIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -112,6 +120,7 @@ export interface FileRoutesByTo {
   '/chapters/$classId/$subject': typeof ChaptersClassIdSubjectRoute
   '/topics/$classId/$subject/$chapter': typeof TopicsClassIdSubjectChapterRoute
   '/simulation/class9/physics/laws-of-motion/projectile-motion': typeof SimulationClass9PhysicsLawsOfMotionProjectileMotionRoute
+  '/simulation/class9/physics/laws-of-motion': typeof SimulationClass9PhysicsLawsOfMotionIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -127,6 +136,7 @@ export interface FileRoutesById {
   '/chapters/$classId/$subject': typeof ChaptersClassIdSubjectRoute
   '/topics/$classId/$subject/$chapter': typeof TopicsClassIdSubjectChapterRoute
   '/simulation/class9/physics/laws-of-motion/projectile-motion': typeof SimulationClass9PhysicsLawsOfMotionProjectileMotionRoute
+  '/simulation/class9/physics/laws-of-motion/': typeof SimulationClass9PhysicsLawsOfMotionIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -143,6 +153,7 @@ export interface FileRouteTypes {
     | '/chapters/$classId/$subject'
     | '/topics/$classId/$subject/$chapter'
     | '/simulation/class9/physics/laws-of-motion/projectile-motion'
+    | '/simulation/class9/physics/laws-of-motion/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -157,6 +168,7 @@ export interface FileRouteTypes {
     | '/chapters/$classId/$subject'
     | '/topics/$classId/$subject/$chapter'
     | '/simulation/class9/physics/laws-of-motion/projectile-motion'
+    | '/simulation/class9/physics/laws-of-motion'
   id:
     | '__root__'
     | '/'
@@ -171,6 +183,7 @@ export interface FileRouteTypes {
     | '/chapters/$classId/$subject'
     | '/topics/$classId/$subject/$chapter'
     | '/simulation/class9/physics/laws-of-motion/projectile-motion'
+    | '/simulation/class9/physics/laws-of-motion/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -186,6 +199,7 @@ export interface RootRouteChildren {
   ChaptersClassIdSubjectRoute: typeof ChaptersClassIdSubjectRoute
   TopicsClassIdSubjectChapterRoute: typeof TopicsClassIdSubjectChapterRoute
   SimulationClass9PhysicsLawsOfMotionProjectileMotionRoute: typeof SimulationClass9PhysicsLawsOfMotionProjectileMotionRoute
+  SimulationClass9PhysicsLawsOfMotionIndexRoute: typeof SimulationClass9PhysicsLawsOfMotionIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -267,6 +281,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TopicsClassIdSubjectChapterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/simulation/class9/physics/laws-of-motion/': {
+      id: '/simulation/class9/physics/laws-of-motion/'
+      path: '/simulation/class9/physics/laws-of-motion'
+      fullPath: '/simulation/class9/physics/laws-of-motion/'
+      preLoaderRoute: typeof SimulationClass9PhysicsLawsOfMotionIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/simulation/class9/physics/laws-of-motion/projectile-motion': {
       id: '/simulation/class9/physics/laws-of-motion/projectile-motion'
       path: '/simulation/class9/physics/laws-of-motion/projectile-motion'
@@ -291,6 +312,8 @@ const rootRouteChildren: RootRouteChildren = {
   TopicsClassIdSubjectChapterRoute: TopicsClassIdSubjectChapterRoute,
   SimulationClass9PhysicsLawsOfMotionProjectileMotionRoute:
     SimulationClass9PhysicsLawsOfMotionProjectileMotionRoute,
+  SimulationClass9PhysicsLawsOfMotionIndexRoute:
+    SimulationClass9PhysicsLawsOfMotionIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
