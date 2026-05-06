@@ -11,6 +11,9 @@ import { FirstLawCanvas } from "@/components/sim/laws/FirstLawCanvas";
 import { SecondLawCanvas } from "@/components/sim/laws/SecondLawCanvas";
 import { ThirdLawCanvas } from "@/components/sim/laws/ThirdLawCanvas";
 import type { LawSample } from "@/components/sim/laws/types";
+import { PromptBox } from "@/components/sim/PromptBox";
+
+const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
 
 export const Route = createFileRoute("/simulation/class9/physics/laws-of-motion/")({
   component: LawsOfMotionLab,
@@ -150,6 +153,17 @@ function FirstLawTab({ onExplain }: { onExplain: () => void }) {
           { title: "Position vs t", color: "#f0abfc", unit: "m", get: (s) => s.x },
         ]} />
       </div>
+      <PromptBox
+        sim="first"
+        current={{ mass, friction, velocity }}
+        examples={["Heavy object on icy road", "Slam the brakes hard", "Light box high friction"]}
+        onApply={(p) => {
+          if (typeof p.mass === "number") setMass(clamp(p.mass, 1, 20));
+          if (typeof p.friction === "number") setFriction(clamp(p.friction, 0, 1));
+          if (typeof p.velocity === "number") setVelocity(clamp(p.velocity, 0, 20));
+          if (p.brake) setTimeout(() => setBrakeTrigger((n) => n + 1), 80);
+        }}
+      />
     </>
   );
 }
@@ -209,6 +223,15 @@ function SecondLawTab({ onExplain }: { onExplain: () => void }) {
           { title: "Force vs t", color: "#ff6ad8", unit: "N", get: (s) => s.f },
         ]} />
       </div>
+      <PromptBox
+        sim="second"
+        current={{ force, mass }}
+        examples={["Maximum force on tiny mass", "Heavy block, gentle push", "F=20N on 4kg"]}
+        onApply={(p) => {
+          if (typeof p.force === "number") setForce(clamp(p.force, 0, 50));
+          if (typeof p.mass === "number") setMass(clamp(p.mass, 1, 20));
+        }}
+      />
     </>
   );
 }
@@ -270,6 +293,17 @@ function ThirdLawTab({ onExplain }: { onExplain: () => void }) {
           { title: "Force vs t", color: "#ff6ad8", unit: "N", get: (s) => s.f },
         ]} />
       </div>
+      <PromptBox
+        sim="third"
+        current={{ thrust, massA, massB }}
+        examples={["Tiny rocket, heavy payload", "Equal masses, max thrust", "Launch the skaters now"]}
+        onApply={(p) => {
+          if (typeof p.thrust === "number") setThrust(clamp(p.thrust, 5, 50));
+          if (typeof p.massA === "number") setMassA(clamp(p.massA, 1, 20));
+          if (typeof p.massB === "number") setMassB(clamp(p.massB, 1, 20));
+          if (p.launch) setTimeout(() => setLaunchTrigger((n) => n + 1), 80);
+        }}
+      />
     </>
   );
 }

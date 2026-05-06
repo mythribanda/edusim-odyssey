@@ -1,0 +1,4 @@
+project_id = "eyirjqbuhhctvcnoghmu"
+
+[functions.interpret-sim-prompt]
+verify_jwt = false

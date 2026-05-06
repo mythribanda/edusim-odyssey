@@ -7,6 +7,7 @@ import { CanvasGame, type LiveStats, type Sample } from "@/components/sim/Canvas
 import { Controls } from "@/components/sim/Controls";
 import { HUD } from "@/components/sim/HUD";
 import { GraphPanel } from "@/components/sim/GraphPanel";
+import { PromptBox } from "@/components/sim/PromptBox";
 import { type GravityKey } from "@/physics/projectile";
 import { Target, X } from "lucide-react";
 
@@ -26,6 +27,7 @@ function ProjectileSim() {
   const [replayTick, setReplayTick] = useState(0);
   const [explainOpen, setExplainOpen] = useState(false);
   const [drag, setDrag] = useState({ power: 0, angle: 45 });
+  const [aim, setAim] = useState<{ power: number; angle: number } | null>(null);
 
   const power = stats.power || drag.power;
   const angle = stats.angle || drag.angle;
@@ -85,9 +87,28 @@ function ProjectileSim() {
             resetTrigger={resetTick}
             replayTrigger={replayTick}
             onPowerAngle={(p, a) => setDrag({ power: p, angle: a })}
+            aim={aim}
           />
         </div>
       </div>
+
+      <PromptBox
+        sim="projectile"
+        current={{ power: drag.power, angle: drag.angle, gravity: gravityKey }}
+        examples={[
+          "Launch on the Moon at 60° with full power",
+          "Low flat shot on Mars",
+          "Steep arc to clear the tall target",
+        ]}
+        onApply={(p) => {
+          if (p.gravity) setGravityKey(p.gravity as GravityKey);
+          const power = typeof p.power === "number" ? p.power : drag.power || 25;
+          const angle = typeof p.angle === "number" ? p.angle : drag.angle || 45;
+          setAim({ power, angle });
+          setDrag({ power, angle });
+          if (p.launch !== false) setTimeout(() => setLaunchTick((n) => n + 1), 50);
+        }}
+      />
 
       <div className="mt-4">
         <GraphPanel samples={samples} T={Math.max(stats.tof, 0.5)} />
